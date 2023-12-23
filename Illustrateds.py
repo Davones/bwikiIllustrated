@@ -11,7 +11,7 @@ import easyocr
 import pandas as pd
 
 from conf.config import AppConfig
-from conf.PicConf import BasePicConf, EquipmentPicConf, MinionPicConf, SpellPicConf
+from conf.PicConf import BasePicConf, EquipmentPicConf, MinionPicConf, SpellPicConf, HeroPicConf
 
 
 logger = logging.getLogger()
@@ -164,4 +164,11 @@ class MinionIllustrated(BaseIllustrated):
             illustrated.Category = manualData.loc[illustrated.Name]['种族']
             illustrated.Attack = int(manualData.loc[illustrated.Name]['攻击值'])
             illustrated.Health = int(manualData.loc[illustrated.Name]['生命值'])
+
+
+class HeroIllustrated(BaseIllustrated):
+    PIC_CONF = HeroPicConf
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 

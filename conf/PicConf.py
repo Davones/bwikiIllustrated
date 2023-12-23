@@ -68,6 +68,8 @@ class EquipmentPicConf(BasePicConf):
     BWIKI_CODE_FILE_PSTH = './result/03-merge_result/EquipmentBwikiCode.txt'
     BWIKI_FILE_FOLDER = './result/03-merge_result/EquipmentPicStd'
 
+    VERIFIED_XLSX_FILE_PATH = './xlsx/EquipmentVerifiedData.xlsx'
+
     MXN_ROOT_PATH_RE = './镜中对决mxn/镜中对决/装备'
 
     EXTEND_FIELD = [
@@ -167,6 +169,8 @@ class SpellPicConf(BasePicConf):
     STD_XLSX_FILE_PATH = './result/02-merge_result/SpellStdData.xlsx'
     BWIKI_CODE_FILE_PSTH = './result/03-merge_result/SpellBwikiCode.txt'
     BWIKI_FILE_FOLDER = './result/03-merge_result/SpellPicStd'
+
+    VERIFIED_XLSX_FILE_PATH = './xlsx/SpellVerifiedData.xlsx'
 
     MXN_ROOT_PATH_RE = './镜中对决mxn/镜中对决/咒术'
     MXN_MANUAL_DATA_FILE = './镜中对决mxn/镜中对决/咒术/咒术数据.xlsx'
@@ -268,6 +272,8 @@ class MinionPicConf(BasePicConf):
     STD_XLSX_FILE_PATH = './result/02-merge_result/MinionStdData.xlsx'
     BWIKI_CODE_FILE_PSTH = './result/03-merge_result/MinionBwikiCode.txt'
     BWIKI_FILE_FOLDER = './result/03-merge_result/MinionPicStd'
+
+    VERIFIED_XLSX_FILE_PATH = './xlsx/MinionVerifiedData.xlsx'
 
     MXN_ROOT_PATH_RE = './镜中对决mxn/镜中对决/随从'
     MXN_MANUAL_DATA_FILE = './镜中对决mxn/镜中对决/随从/随从卡牌数据.xlsx'
@@ -532,3 +538,85 @@ class MinionPicConf(BasePicConf):
         RemixReplaceRepair(pattern='.*?./镜中对决/金色/screen_4964x3116_2023-11-27_18-40-04.png', patternField='FilePathAbs', fieldName='Name', newStr='逃犯'),
         RemixReplaceRepair(pattern='.*?./镜中对决/金色/screen_4964x3116_2023-11-27_18-40-12.png', patternField='FilePathAbs', fieldName='Name', newStr='见习侍卫'),
     ]
+
+
+
+class HeroPicConf(BasePicConf):
+    BWIKI_CODE_FILE_PSTH = './result/03-merge_result/HeroBwikiCode.txt'
+
+    VERIFIED_XLSX_FILE_PATH = './xlsx/HeroVerifiedData.xlsx'
+
+    EXTEND_FIELD = [
+        {
+            'key': 'bwikiHeroFileName',
+            'evalCode': r"""f'''月圆之夜 {illustrated['版本']} {illustrated['类别']} {illustrated['Name']}.png'''"""
+        },
+        {
+            'key': 'bwikiSpellsFileName',
+            'evalCode': r"""f'''月圆之夜 {illustrated['版本']} {illustrated['类别']} {illustrated['Name']} {illustrated['技能']}.png'''"""
+        },
+    ]
+    BWIKI_FILTER_CONF = [
+        {
+            'name': '版本',
+            'mece': True,
+            'show': True,
+            'attrSet': {'镜中对决', },
+        },
+        {
+            'name': '类别',
+            'mece': True,
+            'show': False,
+            'attrSet': {'英雄', },
+        },
+        {
+            'name': '技能消耗',
+            'mece': True,
+            'show': True,
+            'attrSet': {'被动', '0', '1', '2', '3', '4', },
+        },
+        {
+            'name': '开局奖励',
+            'mece': True,
+            'show': True,
+            'attrSet': {'无', '1金币', '2金币', '3金币', },
+        },
+    ]
+    BWIKI_COLUMNS_CONF = [
+        {
+            'name': '英雄图标',
+            'ifRefCode': True,
+            'code': r"""f'''|[[文件:{illustrated['bwikiHeroFileName']}|150px|center|link=]]\n'''""",
+        },
+        # {
+        #     'name': '技能图标',
+        #     'ifRefCode': True,
+        #     'code': r"""f'''|[[文件:{illustrated['bwikiSpellsFileName']}|150px|center|link=]]\n'''""",
+        # },
+        {
+            'name': '英雄名',
+            'ifRefCode': False,
+            'valueKey': 'Name',
+        },
+        {
+            'name': '技能',
+            'ifRefCode': False,
+            'valueKey': '技能',
+        },
+        {
+            'name': '技能消耗',
+            'ifRefCode': False,
+            'valueKey': '技能消耗',
+        },
+        {
+            'name': '技能描述',
+            'ifRefCode': False,
+            'valueKey': '技能描述',
+        },
+        {
+            'name': '开局奖励',
+            'ifRefCode': False,
+            'valueKey': '开局奖励',
+        },
+    ]
+

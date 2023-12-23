@@ -11,7 +11,7 @@ import pandas as pd
 from functions import TreeIllustratedDir
 from conf.config import utils_config_init, AppConfig
 from conf.PicConf import BasePicConf
-from Illustrateds import BaseIllustrated, EquipmentIllustrated, SpellIllustrated, MinionIllustrated
+from Illustrateds import BaseIllustrated, EquipmentIllustrated, SpellIllustrated, MinionIllustrated, HeroIllustrated
 
 
 from python_library.utils.logUtils import LogUtils
@@ -26,19 +26,19 @@ LogUtils.init_log(log_name='bwiki_illustrated_book-01-XmlDataMerge', console_log
 
 
 def ReadStdXmlData(illustratedClass: BaseIllustrated):
-    stdIllustratedData = pd.read_excel(AppConfig.ToDataAbsPath(illustratedClass.PIC_CONF.STD_XLSX_FILE_PATH))
+    stdIllustratedData = pd.read_excel(AppConfig.ToDataAbsPath(illustratedClass.PIC_CONF.VERIFIED_XLSX_FILE_PATH))
 
     illustratedList = []
     for _, row in stdIllustratedData.iterrows():
         illustrated = row.to_dict()
         illustrated['AttributeList'] = ast.literal_eval(illustrated['AttributeList'])
         for filterConf in illustratedClass.PIC_CONF.BWIKI_FILTER_CONF:
+            if filterConf['name'] in illustrated: continue
             illustrated[filterConf['name']] = None if filterConf['mece'] else []
             for attr in illustrated['AttributeList']:
                 if attr in filterConf['attrSet']:
                     if filterConf['mece']: illustrated[filterConf['name']] = attr
                     else: illustrated[filterConf['name']].append(attr)
-
         for extendFieldConf in illustratedClass.PIC_CONF.EXTEND_FIELD:
             illustrated[extendFieldConf['key']] = eval(extendFieldConf['evalCode'])
         illustratedList.append(illustrated)
@@ -127,3 +127,5 @@ if __name__ == '__main__':
     GenBwikiCode(illustratedClass=SpellIllustrated, resavePic = False)
 
     GenBwikiCode(illustratedClass=MinionIllustrated, resavePic = False)
+
+    GenBwikiCode(illustratedClass=HeroIllustrated, resavePic=False)
