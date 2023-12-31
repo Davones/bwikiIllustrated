@@ -322,7 +322,7 @@ class MinionPicConf(BasePicConf):
             'name': '特殊',
             'mece': False,
             'show': True,
-            'attrSet': {'成长', '嘲讽', '击杀', '护盾', '增伤', '疯狂', '遗言', '附着', '先手', },
+            'attrSet': {'成长', '击杀', '护盾', '增伤', '疯狂', '遗言', '附着', '先手', '入场', '亡魂', '横扫', '贯穿', '嘲讽'},
         },
     ]
     BWIKI_COLUMNS_CONF = [
@@ -617,6 +617,73 @@ class HeroPicConf(BasePicConf):
             'name': '开局奖励',
             'ifRefCode': False,
             'valueKey': '开局奖励',
+        },
+    ]
+
+
+
+class CollectionPicConf(BasePicConf):
+    BWIKI_CODE_FILE_PSTH = './result/03-merge_result/CollectionBwikiCode.txt'
+
+    VERIFIED_XLSX_FILE_PATH = './xlsx/CollectionVerifiedData.xlsx'
+
+    EXTEND_FIELD = [
+        {
+            'key': 'bwikiCollectionFileName',
+            'evalCode': r"""f'''月圆之夜 {illustrated['版本']} {illustrated['Category']} {illustrated['Name']}.jpg'''"""
+        },
+    ]
+    BWIKI_FILTER_CONF = [
+        {
+            'name': '版本',
+            'mece': True,
+            'show': True,
+            'attrSet': {'镜中对决', },
+        },
+        {
+            'name': '类别',
+            'mece': True,
+            'show': False,
+            'attrSet': {'收藏', },
+        },
+        {
+            'name': '特殊',
+            'mece': True,
+            'show': True,
+            'attrSet': {'无', '童趣', },
+        },
+        {
+            'name': '获取途径',
+            'mece': True,
+            'show': True,
+            'attrSet': {'免费获得', '月圆之夜公开赛参赛奖励', 'S0通行证', 'S1通行证', },
+        },
+    ]
+    BWIKI_COLUMNS_CONF = [
+        {
+            'name': '收藏图标',
+            'ifRefCode': True,
+            'code': r"""f'''|[[文件:{illustrated['bwikiCollectionFileName']}|150px|center|link=]]\n'''""",
+        },
+        {
+            'name': '收藏',
+            'ifRefCode': False,
+            'valueKey': 'Name',
+        },
+        {
+            'name': '获取途径',
+            'ifRefCode': False,
+            'valueKey': '获取途径',
+        },
+        {
+            'name': '特殊',
+            'ifRefCode': False,
+            'valueKey': '特殊',
+        },
+        {
+            'name': '描述',
+            'ifRefCode': False,
+            'valueKey': 'Description',
         },
     ]
 

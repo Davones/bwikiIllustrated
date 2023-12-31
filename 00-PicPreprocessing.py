@@ -23,7 +23,7 @@ LogUtils.init_log(log_name='bwiki_illustrated_book-00-PicPreprocessing', console
 # cropped.save("./data/cut/pil_cut_thor.jpg")
 
 
-if __name__ == '__main__':
+def cropGoldenMinion():
     oriPath = AppConfig.ToDataAbsPath('./金色ori')
     newPath = AppConfig.ToDataAbsPath('./金色')
     if not os.path.exists(newPath): os.mkdir(newPath)
@@ -50,3 +50,34 @@ if __name__ == '__main__':
         # cropped.show()
         print(os.path.join(newPath, file))
         cropped.save(os.path.join(newPath, file))
+
+def cropCollection():
+    oriPath = AppConfig.ToDataAbsPath('./镜中对决/收藏/screenshot')
+    newPath = AppConfig.ToDataAbsPath('./镜中对决/收藏')
+    if not os.path.exists(newPath): os.mkdir(newPath)
+
+    for file in os.listdir(oriPath):
+        print(file)
+        if file == '.DS_Store': continue
+        image = Image.open(os.path.join(oriPath, file))
+        print(image.size)
+        left, upper, right, lower = 325, 640, 755, 1290
+        # for x in range(left, right):
+        #     for y in range(upper, lower):
+        #         if sum(image.getpixel((x, y))) == 0:
+        #             left = min(left, x)
+        #             right = max(right, x)
+        #             upper = min(upper, y)
+        #             lower = max(lower, y)
+        cropped = image.crop((left, upper, right, lower))
+        # cropped.show()
+
+        # cropped.show()
+        print(os.path.join(newPath, file))
+        cropped.save(os.path.join(newPath, file))
+        # exit()
+
+if __name__ == '__main__':
+    # cropGoldenMinion()
+
+    cropCollection()

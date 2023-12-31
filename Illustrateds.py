@@ -11,7 +11,7 @@ import easyocr
 import pandas as pd
 
 from conf.config import AppConfig
-from conf.PicConf import BasePicConf, EquipmentPicConf, MinionPicConf, SpellPicConf, HeroPicConf
+from conf.PicConf import BasePicConf, EquipmentPicConf, MinionPicConf, SpellPicConf, HeroPicConf, CollectionPicConf
 
 
 logger = logging.getLogger()
@@ -168,6 +168,13 @@ class MinionIllustrated(BaseIllustrated):
 
 class HeroIllustrated(BaseIllustrated):
     PIC_CONF = HeroPicConf
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class CollectionIllustrated(BaseIllustrated):
+    PIC_CONF = CollectionPicConf
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
