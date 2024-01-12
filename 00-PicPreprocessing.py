@@ -52,8 +52,8 @@ def cropGoldenMinion():
         cropped.save(os.path.join(newPath, file))
 
 def cropCollection():
-    oriPath = AppConfig.ToDataAbsPath('./镜中对决/收藏/screenshot')
-    newPath = AppConfig.ToDataAbsPath('./镜中对决/收藏')
+    oriPath = AppConfig.ToDataAbsPath('./镜中对决/S2/screenshot')
+    newPath = AppConfig.ToDataAbsPath('./镜中对决/S2')
     if not os.path.exists(newPath): os.mkdir(newPath)
 
     for file in os.listdir(oriPath):
@@ -61,7 +61,7 @@ def cropCollection():
         if file == '.DS_Store': continue
         image = Image.open(os.path.join(oriPath, file))
         print(image.size)
-        left, upper, right, lower = 325, 640, 755, 1290
+        left, upper, right, lower = 271, 496, 810, 1309
         # for x in range(left, right):
         #     for y in range(upper, lower):
         #         if sum(image.getpixel((x, y))) == 0:
@@ -71,6 +71,7 @@ def cropCollection():
         #             lower = max(lower, y)
         cropped = image.crop((left, upper, right, lower))
         # cropped.show()
+        # exit(123)
 
         # cropped.show()
         print(os.path.join(newPath, file))

@@ -134,4 +134,4 @@ if __name__ == '__main__':
 
     GenBwikiCode(illustratedClass=HeroIllustrated, resavePic=False)
 
-    GenBwikiCode(illustratedClass=CollectionIllustrated, resavePic=False)
+    # GenBwikiCode(illustratedClass=CollectionIllustrated, resavePic=False)
